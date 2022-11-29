@@ -16,7 +16,7 @@ class StudentModel{
   StudentModel({this.studentName, this.fathersName, this.mothersName, this.birthDate, this.studentLanguase, this.studentInistitute, this.studentGrup, this.bloodGrup, this.studentsContact, this.className, this.pictureUrl,this.roll});
 
   StudentModel.fromJson(dynamic json){
-    studentName = json['studentName'];
+    studentName=json['studentName'];
     fathersName = json['fathersName'];
     mothersName =json['mothersName'];
     roll=json['rollNumber'];

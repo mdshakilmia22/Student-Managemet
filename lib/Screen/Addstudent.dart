@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class AddStudent extends StatefulWidget {
 class _AddStudentState extends State<AddStudent> {
   List<String> languages = ['English', 'Bangla'];
   String initialLanguage = 'English';
+  String? datePicker;
 
   DropdownButton<String> getLanguages() {
     List<DropdownMenuItem<String>> dropDownItems = [];
@@ -41,8 +43,6 @@ class _AddStudentState extends State<AddStudent> {
   TextEditingController rollController = TextEditingController();
   TextEditingController fathersNameController= TextEditingController();
   TextEditingController mothersNameController=TextEditingController();
-  TextEditingController dateofbirthcontroller=TextEditingController();
-  TextEditingController languaseController=TextEditingController();
   TextEditingController studentinistitutecontroller=TextEditingController();
   TextEditingController grupcontroller=TextEditingController();
   TextEditingController bloodgrupcontroller=TextEditingController();
@@ -53,9 +53,11 @@ class _AddStudentState extends State<AddStudent> {
 
   final ImagePicker _picker = ImagePicker();
   XFile ? image;
+  String ? _imageUrl;
   Future<void> getImage()async{
     image= await _picker.pickImage(source: ImageSource.gallery);
-   //await FirebaseStorage.instance.ref('Student Image').child(DateTime.now().microsecondsSinceEpoch.toString()).putFile(File(image!.path));
+    var snapshot= await FirebaseStorage.instance.ref('Student Image').child(DateTime.now().microsecondsSinceEpoch.toString()).putFile(File(image!.path));
+    _imageUrl= await snapshot.ref.getDownloadURL();
     setState(() {
 
     });
@@ -139,23 +141,40 @@ class _AddStudentState extends State<AddStudent> {
                     ),
                   ),
                   SizedBox(height: 15,),
-                  AppTextField(
-                    textFieldType: TextFieldType.NAME,
-                    readOnly: true,
-                    controller: dateofbirthcontroller,
+                  DateTimePicker(
+                    firstDate: DateTime(1950),
+                    lastDate: DateTime.now(),
                     decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.calendar_month,size: 30,),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      hintText: DateTime.now().toString().substring(0,10),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      suffixIcon: const Icon(Icons.calendar_month).onTap(()=>showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(1950),
-                          lastDate: DateTime.now()))
-                    )
+                      hintText: 'Date Time',
+
+                    ),
+                    onChanged: (value){
+                      setState(() {
+                        datePicker=value;
+                      });
+                    },
                   ),
+                  // AppTextField(
+                  //   textFieldType: TextFieldType.NAME,
+                  //   readOnly: true,
+                  //   controller: dateofbirthcontroller,
+                  //   decoration: InputDecoration(
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(15)
+                  //     ),
+                  //     hintText: DateTime.now().toString().substring(0,10),
+                  //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                  //     suffixIcon: const Icon(Icons.calendar_month).onTap(()=>showDatePicker(
+                  //         context: context,
+                  //         initialDate: DateTime.now(),
+                  //         firstDate: DateTime(1950),
+                  //         lastDate: DateTime.now()))
+                  //   )
+                  // ),
                   SizedBox(
                     height: 15,
                   ),
@@ -171,20 +190,6 @@ class _AddStudentState extends State<AddStudent> {
                         padding: const EdgeInsets.only(left: 15.0),
                         child: DropdownButtonHideUnderline(child: getLanguages()),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  AppTextField(
-                    textFieldType: TextFieldType.NAME,
-                    controller: studentinistitutecontroller,
-                    decoration: InputDecoration(
-                      hintText: 'Inistiture Name',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-
                     ),
                   ),
                   SizedBox(
@@ -268,7 +273,7 @@ class _AddStudentState extends State<AddStudent> {
 
                       ),
                         onPressed: () async{
-                         StudentModel model= StudentModel(studentName: studentNameController.text, fathersName: fathersNameController.text, mothersName: mothersNameController.text, birthDate: dateofbirthcontroller.text, roll: rollController.text, studentLanguase: languaseController.text, studentInistitute: studentinistitutecontroller.text, studentGrup: grupcontroller.text, bloodGrup: bloodgrupcontroller.text, className: classNamecontroller.text, studentsContact: contactcontroller.text, pictureUrl: pictururlcontroller.text);
+                         StudentModel model= StudentModel(studentName: studentNameController.text, fathersName: fathersNameController.text, mothersName: mothersNameController.text, birthDate: datePicker, roll: rollController.text, studentLanguase: initialLanguage, studentInistitute: studentinistitutecontroller.text, studentGrup: grupcontroller.text, bloodGrup: bloodgrupcontroller.text, className: classNamecontroller.text, studentsContact: contactcontroller.text, pictureUrl: _imageUrl);
                          await FirebaseDatabase.instance.ref('Student Information').push().set(model.toJson()).then((value) {
                            EasyLoading.showSuccess('Done');
                          });
