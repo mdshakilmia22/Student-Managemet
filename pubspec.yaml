@@ -44,6 +44,7 @@ dependencies:
   date_time_picker: ^2.1.0
   image_picker: ^0.8.6
   firebase_storage: ^11.0.6
+  flutter_riverpod: ^2.1.1
 
 
 
@@ -87,9 +88,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Lobster
+     - family: Pacifico
        fonts:
-         - asset: fonts/Lobster-Regular.ttf
+         - asset: fonts/Pacifico-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

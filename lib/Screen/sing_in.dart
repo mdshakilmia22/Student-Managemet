@@ -4,9 +4,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:student_firebase/Screen/Addstudent.dart';
 import 'package:student_firebase/Screen/singup.dart';
-class SingInPage extends StatefulWidget {
-  const SingInPage({Key? key}) : super(key: key);
 
+class SingInPage extends StatefulWidget {
+
+  const SingInPage({Key? key}) : super(key: key);
   @override
   State<SingInPage> createState() => _SingInPageState();
 }

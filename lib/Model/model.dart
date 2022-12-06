@@ -28,6 +28,7 @@ class StudentModel{
     className =json['ClassName'];
     studentsContact=json['contact'];
     pictureUrl =json['pictureUrl'];
+
   }
 
   Map<String,dynamic> toJson () {
@@ -44,6 +45,7 @@ class StudentModel{
     map['ClassName']=className;
     map['contact'] =studentsContact;
     map['pictureUrl']=pictureUrl;
+
     return map;
 }
 }
