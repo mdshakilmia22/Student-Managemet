@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:student_firebase/Screen/Addstudent.dart';
 import 'package:student_firebase/Screen/sing_in.dart';
+import 'package:student_firebase/Screen/student_list.dart';
 class SpalashScreen extends StatefulWidget {
   const SpalashScreen({Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class _SpalashScreenState extends State<SpalashScreen> {
   void getData()async{
     await Future.delayed(const Duration(seconds: 02)).then((value) {
       if(currentPage != null){
-        const AddStudent().launch(context,isNewTask: true);
+        const StudentList().launch(context,isNewTask: true);
       }
       else{
         const SingInPage().launch(context, isNewTask: true);
@@ -32,16 +33,21 @@ class _SpalashScreenState extends State<SpalashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
+      backgroundColor: Colors.grey[200],
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const [
-            CircleAvatar(
-               backgroundColor: Colors.white,
-                radius: 80,
-                child: Text('STUDENTS',style: TextStyle(color: Colors.blueAccent,fontSize: 25,fontWeight: FontWeight.bold),))
+          children:  [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('images/caps.png',height: 80, width: 80,),
+                const Text('ADMIT',style: TextStyle(color: Colors.blue,fontFamily: 'Lobster',fontWeight: FontWeight.w500,fontSize: 27),),
+                const Text('STUDENTS',style: TextStyle(color: Colors.deepOrange,fontFamily: 'Lobster',fontWeight: FontWeight.w500,fontSize: 27),),
+              ],
+            ),
+            Center(child: CircularProgressIndicator()),
           ],
         ),
       ),

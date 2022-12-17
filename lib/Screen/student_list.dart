@@ -5,6 +5,7 @@ import 'package:student_firebase/Model/model.dart';
 import 'package:student_firebase/Screen/Addstudent.dart';
 import 'package:student_firebase/Screen/studentInfo.dart';
 import 'package:student_firebase/porvider/studentprovider.dart';
+
 class StudentList extends StatefulWidget {
   const StudentList({Key? key}) : super(key: key);
   @override
@@ -19,7 +20,7 @@ class _StudentListState extends State<StudentList> {
     Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: (){
-            const AddStudent().launch(context);
+            const AddStudentPage().launch(context);
           },
           child: const Icon(Icons.add,color: Colors.white,),
         ),

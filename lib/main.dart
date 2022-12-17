@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       builder: EasyLoading.init(),
       debugShowCheckedModeBanner: false,
-      home: const StudentList(),
+      home: const SpalashScreen(),
     );
   }
 }

@@ -45,6 +45,8 @@ dependencies:
   image_picker: ^0.8.6
   firebase_storage: ^11.0.6
   flutter_riverpod: ^2.1.1
+  shared_preferences: ^2.0.15
+
 
 
 
@@ -72,8 +74,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+      - images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -88,9 +90,14 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Pacifico
-       fonts:
-         - asset: fonts/Pacifico-Regular.ttf
+    - family: Merriweather
+      fonts:
+        - asset: fonts/Merriweather-Regular.ttf
+    #       - asset: fonts/Schyler-Italic.ttf
+    #         style: italic
+    - family: Lobster
+      fonts:
+        - asset: fonts/Lobster-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
